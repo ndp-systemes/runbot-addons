@@ -90,6 +90,21 @@ class GitlabCIController(http.Controller):
         else:
             return werkzeug.utils.redirect('/runbot/build/%d' % build_id)
 
+    @http.route(CONTROLLER_PREFIX + "/refs/<ref>/commits/<sha>/status.json",
+                type="http", auth="public")
+    def commits_with_refs(self, repo_id, ref, sha, token=None):
+        """Call on merge request open/close (newer versions of gitlab)
+
+        Get testing status of specific sha
+
+        Gitlab get:
+        GET http://GITLAB_URL/PROJECT_WITH_USER/merge_requests/MR_ID/ci_status
+
+        Runbot get:
+        GET /gitlab-ci/REPO_ID/refs/BRANCH/commits/GIT_SHA1/status.json
+        """
+        return self.builds(repo_id, sha, token=token)
+
     @http.route(CONTROLLER_PREFIX + "/commits/<sha>/status.json",
                 type="http", auth="public")
     def commits(self, repo_id, sha, token=None):
