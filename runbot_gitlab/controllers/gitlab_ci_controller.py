@@ -60,6 +60,15 @@ class GitlabCIController(http.Controller):
         logger.info("build with token %s" % token)
         return {}
 
+    @http.route(CONTROLLER_PREFIX + "/refs/<ref>/commits/<sha>",
+                type="http", auth="public")
+    def commit_view_with_refs(self, repo_id, ref, sha):
+        """Link to build page by sha (newer versions of gitlab)
+
+        GET /gitlab-ci/1/refs/BRANCH/commits/SHA
+        """
+        return self.build_view(repo_id, sha)
+
     @http.route(CONTROLLER_PREFIX + "/commits/<sha>",
                 type="http", auth="public")
     def commit_view(self, repo_id, sha):
