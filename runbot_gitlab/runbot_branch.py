@@ -20,13 +20,11 @@
 #
 ##############################################################################
 
-from openerp import models, fields
+from openerp.osv import orm, fields
 
 
-class RunbotBranch(models.Model):
+class RunbotBranch(orm.Model):
     _inherit = "runbot.branch"
-    project_id = fields.Integer('VCS Project', select=1)
-    merge_request_id = fields.Integer('Merge Request', select=1)
 
     def _get_branch_url(self, cr, uid, ids, field_name, arg, context=None):
         """For gitlab branches get gitlab MR formatted branches
@@ -52,5 +50,7 @@ class RunbotBranch(models.Model):
         return r
 
     _columns = {
+        'project_id': fields.integer('VCS Project', select=1),
+        'merge_request_id': fields.integer('Merge Request', select=1),
         'branch_url': fields.function(_get_branch_url, type='char', string='Branch url', readonly=1),
     }
