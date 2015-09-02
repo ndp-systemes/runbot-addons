@@ -50,3 +50,7 @@ class RunbotBranch(models.Model):
             )
         )
         return r
+
+    _columns = {
+        'branch_url': fields.function(_get_branch_url, type='char', string='Branch url', readonly=1),
+    }
