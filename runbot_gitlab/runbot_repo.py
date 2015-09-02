@@ -236,7 +236,7 @@ class RunbotRepo(models.Model):
                              self.name, title)
                 branch_id = self.env['runbot.branch'].create({
                     'repo_id': self.id,
-                    'name': source_branch.name + "MR-" + mr.iid,
+                    'name': "%s-MR-%s" % (source_branch.name, mr.iid),
                     'project_id': project.id,
                     'merge_request_id': mr.iid,
                 })
