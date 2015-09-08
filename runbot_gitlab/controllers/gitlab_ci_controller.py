@@ -161,8 +161,6 @@ class GitlabCIController(http.Controller):
                 elif state == 'pending':
                     status = 'pending'
                 elif state == 'testing':
-                    status = 'pending'
-                elif state == 'running':
                     status = 'running'
                 elif result in ['ok', 'warn']:
                     status = 'success'
