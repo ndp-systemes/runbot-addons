@@ -118,12 +118,8 @@ class RunbotBuild(models.Model):
                     branch_ls = repo.get_module_list(branch_name)
                     modules_to_check_pylint |= set(branch_ls)
 
-            # get all depends and sub-depends from modules
-            _, modules = build.cmd()
-            depends = get_depends(modules, build.server('addons'))
-
             # get all modules to check pylint intersection with modules depends
-            modules_to_check_pylint = list(depends & modules_to_check_pylint)
+            modules_to_check_pylint = list(modules_to_check_pylint)
         return modules_to_check_pylint
 
     def job_15_pylint(self, cr, uid, build, lock_path, log_path, args=None):
