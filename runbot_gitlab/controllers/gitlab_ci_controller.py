@@ -168,7 +168,7 @@ class GitlabCIController(http.Controller):
                     status = 'unknown'
             except IndexError:
                 logger.debug("No good builds found for commit %s" % sha)
-                status = 'failed'
+                status = 'unknown'
             finally:
                 res = {
                     'id': repo_id,
