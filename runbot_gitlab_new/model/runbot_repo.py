@@ -73,7 +73,7 @@ class RunbotRepo(models.Model):
         help="Build only commits that are not currently running in "
              "another branch. Sticky branches are always built.")
 
-    @api.depends('name')
+    @api.depends('name', 'uses_gitlab')
     def _compute_gitlab_project_id(self):
         """Computes the project_id of this repo in Gitlab
         """
