@@ -175,8 +175,6 @@ class RunbotRepo(models.Model):
                             build_info['state'] = 'duplicate'
 
                 new_build = build_obj.create(build_info)
-                # Send info to gitlab that we take this into account
-                new_build.github_status()
 
         # skip old builds (if their sequence number is too low, they will not ever be built)
         skippable_domain = [('repo_id', '=', repo.id), ('state', '=', 'pending')]
