@@ -169,7 +169,7 @@ class RunbotRepo(models.Model):
                     if repo.ignore_duplicates:
                         duplicates = build_obj.search(
                                 [('name', '=', sha), ('branch_id', '!=', branch.id),
-                                 ('state', 'in', ['running'])])
+                                 ('state', 'in', ['running', 'testing'])])
                         if duplicates:
                             build_info['duplicate_id'] = duplicates[0].id
                             build_info['state'] = 'duplicate'
