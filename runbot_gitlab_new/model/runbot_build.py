@@ -31,6 +31,14 @@ class RunbotBuild(models.Model):
 
     build_id = fields.Char(string="CI build ID")
 
+    @api.model
+    def create(self, vals):
+        new_build = super(RunbotBuild, self).create(vals)
+        if new_build.repo_id.uses_gitlab:
+            # Send info to gitlab that we take this into account
+            new_build.github_status()
+        return new_build
+
     @api.multi
     def set_gitlab_commit_status(self, status, description=""):
         """Updates the status of the gitlab commit
