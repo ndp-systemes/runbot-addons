@@ -63,7 +63,6 @@ class RunbotBuild(models.Model):
                     'description': description,
                 }
             )
-            r.raise_for_status()
 
     @api.multi
     def github_status(self):
