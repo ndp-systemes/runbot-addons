@@ -86,9 +86,9 @@ class RunbotRepo(models.Model):
                 repo.gitlab_project_id = r.json().get('id')
 
     @api.one
-    def github(self, url, payload=None, ignore_errors=False, delete=False):
+    def github(self, url, payload=None, ignore_errors=False, context=None):
         if not self.uses_gitlab:
-            return super(RunbotRepo, self).github(url, payload, ignore_errors, delete)
+            return super(RunbotRepo, self).github(url, payload=payload, ignore_errors=ignore_errors, context=context)
         else:
             return {}
 
